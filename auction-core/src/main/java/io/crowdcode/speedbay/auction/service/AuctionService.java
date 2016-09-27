@@ -18,8 +18,9 @@ public interface AuctionService {
     Auction findAuction(Long auctionId);
 
     List<Auction> findRunningAuctions();
+
     List<Auction> findExpiredAuctions();
 
-    void bidOnAuction(final Long auctionId, BigDecimal amount)
-            throws AuctionNotFoundException, AuctionExpiredException, BidTooLowException;
+    void bidOnAuction(final Long auctionId, BigDecimal amount) throws AuctionNotFoundException, AuctionExpiredException, BidTooLowException;
+
 }

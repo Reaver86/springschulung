@@ -1,10 +1,11 @@
 package io.crowdcode.speedbay.auction.exception;
 
-import lombok.AllArgsConstructor;
-
 /**
- * Created by SU00079 on 27.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
-@AllArgsConstructor
 public class AuctionNotFoundException extends ApplicationException {
+
+    public AuctionNotFoundException(Long auctionId) {
+        super(String.format("Auction with id %d does not exist.", auctionId));
+    }
 }

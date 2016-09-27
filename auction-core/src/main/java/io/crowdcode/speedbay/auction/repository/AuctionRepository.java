@@ -6,11 +6,16 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by SU00079 on 27.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
 public interface AuctionRepository {
+
     Optional<Auction> find(Long auctionId);
+
     Auction findOne(Long auctionId);
+
     List<Auction> findAll();
+
     Auction save(Auction auction);
+
 }

@@ -1,11 +1,12 @@
 package io.crowdcode.speedbay.auction.exception;
 
-import lombok.AllArgsConstructor;
-
 /**
- * Created by SU00079 on 27.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
-@AllArgsConstructor
 public class AuctionExpiredException extends ApplicationException {
+
+    public AuctionExpiredException(Long auctionId) {
+        super("Auction"+ auctionId +" already expired ");
+    }
 
 }

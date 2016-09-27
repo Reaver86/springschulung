@@ -1,54 +1,58 @@
 package io.crowdcode.speedbay.auction.service;
 
+import io.crowdcode.speedbay.auction.dto.AuctionInfoDto;
 import io.crowdcode.speedbay.auction.exception.AuctionExpiredException;
 import io.crowdcode.speedbay.auction.exception.AuctionNotFoundException;
 import io.crowdcode.speedbay.auction.exception.BidTooLowException;
 import io.crowdcode.speedbay.auction.model.Auction;
+import io.crowdcode.speedbay.auction.model.Bid;
 import io.crowdcode.speedbay.auction.repository.AuctionRepository;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import io.crowdcode.speedbay.common.time.TimeMachine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static io.crowdcode.speedbay.common.AnsiColor.green;
 
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-@Setter
-@Slf4j
+@Service
 public class AuctionServiceBean implements AuctionService {
 
-    private String name;
+    private final static Logger log = LoggerFactory.getLogger(AuctionServiceBean.class);
 
-    public AuctionServiceBean() {
-        log.info(green("Here I am!"));
-    }
-
-    public AuctionServiceBean(String name) {
-        this.name = name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    @Autowired
     private AuctionRepository auctionRepository;
 
-    @Override
     public Long placeAuction(String title, String description, BigDecimal minAmount) {
-        return null;
+
+        if (minAmount == null || minAmount.compareTo(BigDecimal.ONE) <= 0) {
+            minAmount = BigDecimal.ONE;
+        }
+
+        Auction auction = new Auction()
+                .setOwner("owner") // wo kommt der Principal her
+                .setTitle(title)
+                .setDescription(description)
+                .setMinAmount(minAmount)
+                .setBeginDate(LocalDateTime.now())
+                .setExpireDate(LocalDateTime.now().plusMinutes(5));
+
+        Auction save = auctionRepository.save(auction);
+        return save.getId();
     }
 
-    @Override
     public Auction findAuction(Long auctionId) {
-        return null;
+        return auctionRepository.findOne(auctionId);
     }
 
-    @Override
     public List<Auction> findRunningAuctions() {
+        final LocalDateTime now = TimeMachine.now();
         return auctionRepository
                 .findAll()
                 .parallelStream()
@@ -56,8 +60,8 @@ public class AuctionServiceBean implements AuctionService {
                 .collect(Collectors.toList());
     }
 
-    @Override
     public List<Auction> findExpiredAuctions() {
+        final LocalDateTime now = TimeMachine.now();
         return auctionRepository
                 .findAll()
                 .parallelStream()
@@ -65,8 +69,29 @@ public class AuctionServiceBean implements AuctionService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public void bidOnAuction(Long auctionId, BigDecimal amount) throws AuctionNotFoundException, AuctionExpiredException, BidTooLowException {
+    public void bidOnAuction(final Long auctionId, BigDecimal amount) throws AuctionNotFoundException, AuctionExpiredException, BidTooLowException {
+        Auction auction = auctionRepository.findOne(auctionId);
 
+        if (auction == null) {
+            throw new AuctionNotFoundException(auctionId);
+        }
+
+        if (auction.isExpired()) {
+            throw new AuctionExpiredException(auctionId);
+        }
+
+        if (auction.getMinAmount().compareTo(amount) >= 0
+                || auction.getHighestBid().getAmount().compareTo(amount) >= 0) {
+            throw new BidTooLowException(auction.getHighestBid());
+        }
+
+        Bid bid = new Bid().setAmount(amount).setEmail("bidder"); // Principal with his email
+        auction.getBids().add(bid);
+        auctionRepository.save(auction);
+    }
+
+
+    public void setAuctionRepository(AuctionRepository auctionRepository) {
+        this.auctionRepository = auctionRepository;
     }
 }

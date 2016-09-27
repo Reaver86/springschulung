@@ -1,10 +1,12 @@
 package io.crowdcode.speedbay.auction.exception;
 
-import lombok.AllArgsConstructor;
+import io.crowdcode.speedbay.auction.model.Bid;
 
 /**
- * Created by SU00079 on 27.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
-@AllArgsConstructor
 public class BidTooLowException extends ApplicationException {
+    public BidTooLowException(Bid highestBid) {
+        super("The bid is to low. Current highestBid is " + highestBid.toString());
+    }
 }

@@ -1,8 +1,7 @@
-package io.crowdcode.speedbay.auction.repository.inmemory;
+package io.crowdcode.speedbay.auction.repository;
 
 import io.crowdcode.speedbay.auction.fixture.AuctionFixture;
 import io.crowdcode.speedbay.auction.model.Auction;
-import io.crowdcode.speedbay.auction.repository.AuctionRepository;
 import io.crowdcode.speedbay.auction.service.AuctionService;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,28 +10,35 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.math.BigDecimal;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by SU00079 on 27.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
-public class AuctionRepositoryInMemoryBeanTest {
+public class AuctionRepositoryTest {
 
     private ApplicationContext context;
 
     @Before
     public void setup() {
-        context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        context = new ClassPathXmlApplicationContext("classpath:exercise-6.xml");
     }
 
     @Test
     public void testApplicationContextWithIntegration() throws Exception {
+        //TODO AuctionRepository Bean aus dem ApplicationContext laden
+
         AuctionRepository repository = context.getBean("auctionRepository", AuctionRepository.class);
+
         assertNotNull(repository);
 
-        AuctionService service = context.getBean("auctionService", AuctionService.class);
+        // TODO AuctionService Bean aus dem ApplicationContext laden
+
+        AuctionService service = context.getBean(AuctionService.class);
+
         assertNotNull(service);
 
 
@@ -53,4 +59,7 @@ public class AuctionRepositoryInMemoryBeanTest {
 
         assertThat(found.getHighestBid().getAmount().doubleValue(), is(11.0));
     }
+
+
+
 }
