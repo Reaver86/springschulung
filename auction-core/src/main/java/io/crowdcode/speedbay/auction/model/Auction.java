@@ -50,7 +50,4 @@ public class Auction extends AbstractEntity {
         return !beginDate.isAfter(now)
                 && expireDate.isAfter(now);
     }
-
-
-
 }

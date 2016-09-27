@@ -6,6 +6,5 @@ import lombok.AllArgsConstructor;
  * Created by SU00079 on 27.09.2016.
  */
 @AllArgsConstructor
-public class ApplicationException extends Exception {
-
+public class BidTooLowException extends ApplicationException {
 }
