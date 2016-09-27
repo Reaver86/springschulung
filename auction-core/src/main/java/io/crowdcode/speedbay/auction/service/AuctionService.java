@@ -1,11 +1,7 @@
 package io.crowdcode.speedbay.auction.service;
 
 /**
- * Auction Service Interface
+ * @author Ingo Düppe (Crowdcode)
  */
 public interface AuctionService {
-
-    String getName();
-
-    void testMethod();
 }

@@ -1,21 +1,27 @@
 package io.crowdcode.speedbay.auction.service;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import static io.crowdcode.speedbay.common.AnsiColor.green;
+
 /**
- * Implementation of Auction Service
+ * @author Ingo Düppe (Crowdcode)
  */
-@Getter
-@Setter
 @Slf4j
 public class AuctionServiceBean implements AuctionService {
 
     private String name;
 
-    public void testMethod(){
-        log.debug("Test Method was executed!");
+    public AuctionServiceBean() {
+        log.info(green("Here I am!"));
+    }
+
+    public AuctionServiceBean(String name) {
+        this.name = name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 

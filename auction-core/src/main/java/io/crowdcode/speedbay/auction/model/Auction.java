@@ -40,6 +40,7 @@ public class Auction extends AbstractEntity {
                 .orElse(new Bid().setAmount(BigDecimal.ZERO).setEmail("-"));
     }
 
+
     public boolean isExpired() {
         return expireDate.isBefore(TimeMachine.now());
     }
@@ -49,4 +50,7 @@ public class Auction extends AbstractEntity {
         return !beginDate.isAfter(now)
                 && expireDate.isAfter(now);
     }
+
+
+
 }
