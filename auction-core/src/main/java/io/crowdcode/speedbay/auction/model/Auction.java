@@ -1,46 +1,56 @@
 package io.crowdcode.speedbay.auction.model;
 
 import io.crowdcode.speedbay.common.time.TimeMachine;
-import io.crowdcode.speedbay.commons.Identifiable;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by SU00079 on 27.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
-@Getter
-@Setter
-@Accessors(chain = true)
+@Getter @Setter @Accessors(chain=true)
+@ToString @EqualsAndHashCode
 public class Auction extends AbstractEntity {
+
     private String owner;
-    private LocalDateTime expireDate;
+
     private LocalDateTime beginDate;
+
+    private LocalDateTime expireDate;
+
     private BigDecimal minAmount;
+
     private String title;
+
     private String description;
 
-    private List<Bid> bids;
+    private List<Bid> bids = new ArrayList<>();
 
     public Bid getHighestBid() {
-        return null;
+        return bids
+                .stream()
+                .max((b1, b2) -> b1.getAmount().compareTo(b2.getAmount()))
+                .orElse(new Bid().setAmount(BigDecimal.ZERO).setEmail("-"));
     }
 
+
     public boolean isExpired() {
-        return TimeMachine.now().isAfter(expireDate);
+        return expireDate.isBefore(TimeMachine.now());
     }
 
     public boolean isRunning() {
-        return TimeMachine.now().isBefore(expireDate) && LocalDateTime.now().isAfter(beginDate);
+        LocalDateTime now = TimeMachine.now();
+        return !beginDate.isAfter(now)
+                && expireDate.isAfter(now);
     }
 
-    @Override
-    public Identifiable setId(Serializable serializable) {
-        return null;
-    }
+
+
 }
