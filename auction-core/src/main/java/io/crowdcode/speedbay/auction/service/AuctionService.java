@@ -5,4 +5,7 @@ package io.crowdcode.speedbay.auction.service;
  */
 public interface AuctionService {
 
+    String getName();
+
+    void testMethod();
 }

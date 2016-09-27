@@ -25,7 +25,8 @@ public class AuctionServiceTest {
                 beanName -> System.out.println(beanName)
         );
 
-//        context.close();
+        auctionService.testMethod();
 
+        Assert.assertEquals("Halodri", auctionService.getName());
     }
 }

@@ -4,7 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="auctionService" class="io.crowdcode.speedbay.auction.service.AuctionServiceBean">
-
+        <property name="name" value="Halodri"></property>
     </bean>
+
 
 </beans>
