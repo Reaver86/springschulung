@@ -21,12 +21,10 @@ import java.util.stream.Collectors;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-@Service
 public class AuctionServiceBean implements AuctionService {
 
     private final static Logger log = LoggerFactory.getLogger(AuctionServiceBean.class);
 
-    @Autowired
     private AuctionRepository auctionRepository;
 
     public Long placeAuction(String title, String description, BigDecimal minAmount) {

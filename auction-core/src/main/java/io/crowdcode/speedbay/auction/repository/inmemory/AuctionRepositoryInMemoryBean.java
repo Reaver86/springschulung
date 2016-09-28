@@ -13,10 +13,8 @@ import java.util.Optional;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-@Repository
 public class AuctionRepositoryInMemoryBean implements AuctionRepository {
 
-    @Autowired
     private InMemoryStore<Auction> store;
 
     @Override
