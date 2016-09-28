@@ -5,7 +5,7 @@ import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.repository.AuctionRepository;
 import io.crowdcode.speedbay.common.inmemory.InMemoryStore;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,8 +13,10 @@ import java.util.Optional;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
+@Component
 public class AuctionRepositoryInMemoryBean implements AuctionRepository {
 
+    @Autowired
     private InMemoryStore<Auction> store;
 
     @Override

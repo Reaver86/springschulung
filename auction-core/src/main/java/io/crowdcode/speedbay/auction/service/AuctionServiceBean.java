@@ -1,6 +1,5 @@
 package io.crowdcode.speedbay.auction.service;
 
-import io.crowdcode.speedbay.auction.dto.AuctionInfoDto;
 import io.crowdcode.speedbay.auction.exception.AuctionExpiredException;
 import io.crowdcode.speedbay.auction.exception.AuctionNotFoundException;
 import io.crowdcode.speedbay.auction.exception.BidTooLowException;
@@ -11,7 +10,7 @@ import io.crowdcode.speedbay.common.time.TimeMachine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,10 +20,12 @@ import java.util.stream.Collectors;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
+@Component
 public class AuctionServiceBean implements AuctionService {
 
     private final static Logger log = LoggerFactory.getLogger(AuctionServiceBean.class);
 
+    @Autowired
     private AuctionRepository auctionRepository;
 
     public Long placeAuction(String title, String description, BigDecimal minAmount) {

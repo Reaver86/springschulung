@@ -1,16 +1,18 @@
 package io.crowdcode.speedbay.auction.config;
 
 import io.crowdcode.speedbay.auction.model.Auction;
+import io.crowdcode.speedbay.auction.model.Bid;
 import io.crowdcode.speedbay.auction.repository.AuctionRepository;
 import io.crowdcode.speedbay.auction.repository.inmemory.AuctionRepositoryInMemoryBean;
 import io.crowdcode.speedbay.auction.service.AuctionService;
 import io.crowdcode.speedbay.auction.service.AuctionServiceBean;
 import io.crowdcode.speedbay.common.inmemory.InMemoryStore;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Created by SU00079 on 27.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
 @Configuration
 public class BusinessLogicConfiguration {
@@ -23,16 +25,25 @@ public class BusinessLogicConfiguration {
     }
 
     @Bean
-    public AuctionRepository auctionRepositoryInMemoryBean(InMemoryStore<Auction> store) {
+    public AuctionRepositoryInMemoryBean auctionRepositoryInMemoryBean(
+            @Qualifier("auctionStore") InMemoryStore<?> storeAuction) {
         AuctionRepositoryInMemoryBean repository = new AuctionRepositoryInMemoryBean();
-        repository.setStore(store);
+        repository.setStore((InMemoryStore<Auction>) storeAuction);
         return repository;
     }
 
-    @Bean
+    @Bean(name = {"storeAuction", "auctionStore", "inMemoryStoreAuction"})
     public InMemoryStore<Auction> storeAuction() {
         InMemoryStore<Auction> store = new InMemoryStore<>();
         store.init();
+        return store;
+    }
+
+
+    @Bean(initMethod = "init")
+    public InMemoryStore<Bid> storeBid() {
+        InMemoryStore<Bid> store = new InMemoryStore<>();
+//        store.init();
         return store;
     }
 

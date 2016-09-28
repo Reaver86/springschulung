@@ -15,8 +15,11 @@ import java.util.List;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-@Getter @Setter @Accessors(chain=true)
-@ToString @EqualsAndHashCode
+@Getter
+@Setter
+@Accessors(chain = true)
+@ToString
+@EqualsAndHashCode
 public class Auction extends AbstractEntity {
 
     private String owner;

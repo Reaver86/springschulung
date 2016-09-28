@@ -3,25 +3,25 @@ package io.crowdcode.speedbay.auction.config;
 import io.crowdcode.speedbay.auction.fixture.AuctionFixture;
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.service.AuctionService;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.math.BigDecimal;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by SU00079 on 27.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
 public class BusinessLogicConfigurationTest {
 
     private AnnotationConfigApplicationContext context;
 
     @Before
-    public void setup() {
+    public void setUp() throws Exception {
         context = new AnnotationConfigApplicationContext(BusinessLogicConfiguration.class);
     }
 
@@ -41,10 +41,5 @@ public class BusinessLogicConfigurationTest {
         service.bidOnAuction(auctionId, BigDecimal.valueOf(11));
         Auction found = service.findAuction(auctionId);
         assertThat(found.getHighestBid().getAmount().doubleValue(), is(11.0));
-    }
-
-    @After
-    public void tearDown() {
-        context.close();
     }
 }
