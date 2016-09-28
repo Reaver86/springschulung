@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-//@Component
 @Service
 public class MessageServiceBean {
 

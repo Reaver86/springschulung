@@ -11,7 +11,7 @@
     <logger name="org.hibernate.SQL" level="DEBUG"/>
     <logger name="org.hibernate.type.descriptor" level="INFO"/>
     <logger name="org.hibernate.tool.hbm2ddl" level="INFO"/>
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="CONSOLE" />
     </root>
 </configuration>
