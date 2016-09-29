@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Component
 public class BadWordValidatorBean implements BadWordValidator {
 
-    @Value("classpath:badWords.txt")
+    @Value("classpath:badWord.txt")
     private Resource badWordsFile;
 
     private List<String> badWords;
