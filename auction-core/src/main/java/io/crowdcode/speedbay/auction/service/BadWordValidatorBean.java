@@ -1,12 +1,10 @@
-package io.crowdcode.speedbay.auction.validator;
+package io.crowdcode.speedbay.auction.service;
 
 import io.crowdcode.speedbay.auction.exception.BadWordException;
 import io.crowdcode.speedbay.auction.exception.SystemException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
@@ -17,28 +15,38 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static io.crowdcode.speedbay.common.AnsiColor.green;
+
 /**
- * Created by SU00079 on 29.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
 @Slf4j
-@Component
 public class BadWordValidatorBean implements BadWordValidator {
 
-    @Value("classpath:badWord.txt")
+    @Value("classpath:badWords.txt")
     private Resource badWordsFile;
 
     private List<String> badWords;
 
+//    public BadWordValidatorBean(@Value("classpath:badWords.txt") Resource badWordsFile) {
+//
+//    }
+
     @PostConstruct
-    private void init() {
+    private void postConstruct() {
+        log.info(green("init bad word validate"));
+
         try (InputStream is = badWordsFile.getInputStream();
              InputStreamReader isr = new InputStreamReader(is);
              BufferedReader bufferedReader = new BufferedReader(isr)) {
 
-            badWords = bufferedReader.lines().map(line -> line.split("\\,\\s?"))
-                    .distinct().flatMap(Arrays::stream)
+            badWords = bufferedReader
+                    .lines()
+                    .map(line -> line.split("\\,|\\s+"))
+                    .flatMap(Arrays::stream)
+                    .distinct()
                     .collect(Collectors.toList());
-            log.info("found bad words: {}", Arrays.toString(badWords.toArray()));
+            log.info("found bad words: {}", Arrays.toString(this.badWords.toArray()));
 
         } catch (IOException e) {
             throw new SystemException("Could not read BadWords", e);
@@ -63,4 +71,5 @@ public class BadWordValidatorBean implements BadWordValidator {
         }
         return false;
     }
+
 }

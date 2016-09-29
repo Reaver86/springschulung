@@ -1,12 +1,14 @@
-package io.crowdcode.speedbay.auction.validator;
+package io.crowdcode.speedbay.auction.service;
+
 
 import io.crowdcode.speedbay.auction.exception.BadWordException;
-import org.springframework.stereotype.Component;
 
 /**
- * Created by SU00079 on 29.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
 public interface BadWordValidator {
+
     void checkBadWords(String title) throws BadWordException;
+
     boolean isInvalid(String title);
 }

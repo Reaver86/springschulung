@@ -2,6 +2,7 @@ package io.crowdcode.speedbay.auction.service;
 
 import io.crowdcode.speedbay.auction.exception.AuctionExpiredException;
 import io.crowdcode.speedbay.auction.exception.AuctionNotFoundException;
+import io.crowdcode.speedbay.auction.exception.BadWordException;
 import io.crowdcode.speedbay.auction.exception.BidTooLowException;
 import io.crowdcode.speedbay.auction.model.Auction;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 public interface AuctionService {
 
-    Long placeAuction(String title, String description, BigDecimal minAmount);
+    Long placeAuction(String title, String description, BigDecimal minAmount) throws BadWordException;
 
     Auction findAuction(Long auctionId);
 

@@ -1,14 +1,18 @@
 package io.crowdcode.speedbay.auction.config;
 
+import io.crowdcode.speedbay.auction.service.BadWordValidator;
+import io.crowdcode.speedbay.auction.service.BadWordValidatorBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
-
 /**
- * Created by SU00079 on 29.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
 @Configuration
 public class BadWordValidatorConfiguration {
 
+    @Bean
+    public BadWordValidator badWordValidator() {
+        return new BadWordValidatorBean();
+    }
 }
