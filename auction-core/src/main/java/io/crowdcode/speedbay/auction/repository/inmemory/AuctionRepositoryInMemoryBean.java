@@ -6,6 +6,7 @@ import io.crowdcode.speedbay.auction.repository.AuctionRepository;
 import io.crowdcode.speedbay.common.inmemory.InMemoryStore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +18,7 @@ import static io.crowdcode.speedbay.common.AnsiColor.green;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
+@Profile("!jpa")
 @Slf4j
 @Repository
 public class AuctionRepositoryInMemoryBean implements AuctionRepository {

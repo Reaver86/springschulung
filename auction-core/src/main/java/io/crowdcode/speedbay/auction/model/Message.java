@@ -1,21 +1,39 @@
 package io.crowdcode.speedbay.auction.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import java.time.LocalDateTime;
 
 /**
- * Created by SU00079 on 30.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
-@Getter
-@Setter
-@ToString
 public class Message {
+
     private String message;
     private String createdBy;
     private LocalDateTime createdAt;
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
     public Message withMessage(final String message) {
         this.message = message;
@@ -30,5 +48,14 @@ public class Message {
     public Message withCreatedAt(final LocalDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "message='" + message + '\'' +
+                ", createdBy='" + createdBy + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

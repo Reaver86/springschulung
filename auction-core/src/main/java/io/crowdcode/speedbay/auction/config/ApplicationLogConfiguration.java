@@ -1,24 +1,27 @@
 package io.crowdcode.speedbay.auction.config;
 
+import io.crowdcode.speedbay.auction.repository.ApplicationLogRepository;
 import io.crowdcode.speedbay.auction.repository.jdbc.ApplicationLogRepositoryBean;
+import io.crowdcode.speedbay.auction.service.ApplicationLogService;
 import io.crowdcode.speedbay.auction.service.ApplicationLogServiceBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
- * Created by SU00079 on 30.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
 @Configuration
-@Import({DatabasePopulateConfiguration.class})
+@Import({BusinessLogicAnnotationConfiguration.class, DatabasePopulateConfiguration.class})
 public class ApplicationLogConfiguration {
+
     @Bean
-    public ApplicationLogRepositoryBean applicationLogRepositoryBean() {
+    public ApplicationLogRepository applicationLogRepository() {
         return new ApplicationLogRepositoryBean();
     }
 
     @Bean
-    public ApplicationLogServiceBean applicationLogServiceBean() {
+    public ApplicationLogService applicationLogService() {
         return new ApplicationLogServiceBean();
     }
 }

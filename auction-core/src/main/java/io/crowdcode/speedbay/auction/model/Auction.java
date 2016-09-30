@@ -7,6 +7,9 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import java.util.List;
 @Accessors(chain = true)
 @ToString
 @EqualsAndHashCode
+@Entity
 public class Auction extends AbstractEntity {
 
     private String owner;
@@ -34,6 +38,7 @@ public class Auction extends AbstractEntity {
 
     private String description;
 
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Bid> bids = new ArrayList<>();
 
     public Bid getHighestBid() {

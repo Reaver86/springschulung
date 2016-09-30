@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import javax.persistence.Entity;
 import java.math.BigDecimal;
 
 /**
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
  */
 @Getter @Setter @Accessors(chain = true)
 @EqualsAndHashCode @ToString
+@Entity
 public class Bid extends AbstractEntity {
 
     private String email;

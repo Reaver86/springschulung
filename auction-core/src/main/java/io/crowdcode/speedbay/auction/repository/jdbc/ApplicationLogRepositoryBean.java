@@ -14,14 +14,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Created by SU00079 on 30.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
 @Repository
 public class ApplicationLogRepositoryBean extends NamedParameterJdbcDaoSupport implements ApplicationLogRepository {
-    public static final String INSERT_SQL = "INSERT INTO Application_Log (id, message, createdAt, createdBy)"
-            + " VALUES (nextVal('LogSequence'), :message, :createdAt, :createdBy)";
-    public static final String SELECT_BETWEEN_SQL = "SELECT id, message, createdAt, createdBy "
-            + " FROM Application_Log WHERE createdAt BETWEEN :from and :to";
+
+    public static final String INSERT_SQL = "INSERT INTO APPLICATION_LOG (id, message, createdAt, createdBy) VALUES (nextVal('logsequence'), :message, :createdAt, :createdBy)";
+    public static final String SELECT_BETWEEN_SQL = "SELECT id, message, createdAt, createdBy FROM APPLICATION_LOG WHERE createdAt BETWEEN :from and :to";
 
     @Autowired
     private DataSource dataSource;
@@ -41,7 +40,6 @@ public class ApplicationLogRepositoryBean extends NamedParameterJdbcDaoSupport i
     }
 
     @Override
-    // RowMapper als Lambda Ausdruck
     public List<Message> findLogs(LocalDateTime from, LocalDateTime to) {
         return getNamedParameterJdbcTemplate().query(SELECT_BETWEEN_SQL,
                 new MapSqlParameterSource()
@@ -52,4 +50,5 @@ public class ApplicationLogRepositoryBean extends NamedParameterJdbcDaoSupport i
                         .withCreatedBy(rs.getString("createdBy"))
                         .withCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime()));
     }
+
 }
