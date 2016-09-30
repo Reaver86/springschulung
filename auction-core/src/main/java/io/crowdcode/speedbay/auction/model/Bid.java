@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 @Entity
 @Getter @Setter @Accessors(chain = true)
 @EqualsAndHashCode @ToString
-@Entity
 public class Bid extends AbstractEntity {
 
     private String email;

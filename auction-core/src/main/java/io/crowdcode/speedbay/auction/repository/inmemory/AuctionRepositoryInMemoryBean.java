@@ -18,7 +18,6 @@ import static io.crowdcode.speedbay.common.AnsiColor.green;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-@Profile("!jpa")
 @Slf4j
 @Repository
 @Profile("!jpa")
