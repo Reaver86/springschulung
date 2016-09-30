@@ -28,7 +28,8 @@ import static io.crowdcode.speedbay.common.AnsiColor.red;
         excludeFilters = @ComponentScan.Filter
                 (
                         type = FilterType.REGEX,
-                        pattern = "io\\.crowdcode\\.speedbay\\.auction\\.config\\..*"
+                        pattern = {"io\\.crowdcode\\.speedbay\\.auction\\.config\\..*",
+                                  ".*AppicationLog.*"}
                 )
 )
 public class BusinessLogicAnnotationConfiguration {
