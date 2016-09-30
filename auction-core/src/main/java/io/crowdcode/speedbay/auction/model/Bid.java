@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
+@Entity
 @Getter @Setter @Accessors(chain = true)
 @EqualsAndHashCode @ToString
 @Entity

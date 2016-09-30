@@ -18,12 +18,9 @@ import java.util.List;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-@Getter
-@Setter
-@Accessors(chain = true)
-@ToString
-@EqualsAndHashCode
 @Entity
+@Getter @Setter @Accessors(chain=true)
+@ToString @EqualsAndHashCode
 public class Auction extends AbstractEntity {
 
     private String owner;
@@ -58,4 +55,7 @@ public class Auction extends AbstractEntity {
         return !beginDate.isAfter(now)
                 && expireDate.isAfter(now);
     }
+
+
+
 }

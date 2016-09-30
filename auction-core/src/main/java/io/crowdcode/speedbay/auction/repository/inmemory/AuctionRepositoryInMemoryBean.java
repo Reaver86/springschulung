@@ -21,6 +21,7 @@ import static io.crowdcode.speedbay.common.AnsiColor.green;
 @Profile("!jpa")
 @Slf4j
 @Repository
+@Profile("!jpa")
 public class AuctionRepositoryInMemoryBean implements AuctionRepository {
 
     @Autowired

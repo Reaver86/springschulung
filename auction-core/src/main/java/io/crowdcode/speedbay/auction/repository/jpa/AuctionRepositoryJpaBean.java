@@ -7,15 +7,15 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by SU00079 on 30.09.2016.
+ * @author Ingo Düppe (Crowdcode)
  */
-@Profile("jpa")
 @Repository
+@Profile("jpa")
 public class AuctionRepositoryJpaBean implements AuctionRepository {
 
     @PersistenceContext
@@ -23,7 +23,7 @@ public class AuctionRepositoryJpaBean implements AuctionRepository {
 
     @Override
     public Optional<Auction> find(Long auctionId) {
-        return Optional.ofNullable(em.find(Auction.class, auctionId));
+        return Optional.ofNullable(findOne(auctionId));
     }
 
     @Override
@@ -33,8 +33,9 @@ public class AuctionRepositoryJpaBean implements AuctionRepository {
 
     @Override
     public List<Auction> findAll() {
-        Query query = em.createQuery("SELECT a FROM Auction a");
-        return (List<Auction>) query.getResultList();
+        String ql = "SELECT a FROM Auction a JOIN FETCH a.bids";
+        TypedQuery<Auction> query = em.createQuery(ql, Auction.class);
+        return query.getResultList();
     }
 
     @Override
